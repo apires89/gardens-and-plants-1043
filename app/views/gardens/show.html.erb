@@ -9,12 +9,22 @@
   <div class="row">
   <% @garden.plants.each do |plant| %>
     <div class="col">
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= plant.image_url %>)">
+      <div class="card-category main-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= plant.image_url %>)">
+        <div class="card-tags">
+          <% plant.tags.each do |tag| %>
+          <span><%= tag.name %></span>
+          <% end %>
+        </div>
         <div class="plant_content d-flex">
           <p style="text-align: center;margin-right: 15px;"><%= plant.name %></p>
-          <%= link_to plant_path(plant), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
-            <i class="fa-solid fa-x icon-style"></i>
-          <% end %>
+          <div class="links d-flex">
+            <%= link_to new_plant_plant_tag_path(plant), class: "link-style" do %>
+              <i class="fa-light fa-plus icon-style"></i>
+            <% end %>
+            <%= link_to plant_path(plant), class: "link-style", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+              <i class="fa-solid fa-x icon-style"></i>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
